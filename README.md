@@ -8,7 +8,7 @@ Follow these simple step and you'll have your playboy PC...
 -   Boot through your USB
     
 
-> Setup Internet for wifi, If you're using ethernet skip this part.
+> Setup Internet for wireless connection, If you're using ethernet skip this part.
 > 
 > Or, If you have a problem to connecting with ethernet run this
 > 
@@ -128,6 +128,10 @@ mount /dev/sda2 /mnt
 pacman -i /mnt base base-devel linux-lts linux-firmware amd-ucode sudo nano vi
 ```
 
+Note - You can use "intel-ucode" for Intel baed system
+
+
+
 -   Configure the File system
     
 
@@ -161,6 +165,8 @@ nano /etc/locale.gen
     
 
 > #en_IN.UTF-8 UTF-8
+
+Note - Set this according to your region
 
 1.  save and exit
     
