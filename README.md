@@ -125,7 +125,7 @@ mount /dev/sda2 /mnt
     
 
 ```
-pacman -i /mnt base base-devel linux-lts linux-firmware amd-ucode sudo nano vi
+pacstrap -K /mnt base base-devel linux-lts linux-firmware amd-ucode sudo nano vi
 ```
 
 Note - You can use "intel-ucode" for Intel baed system
@@ -164,7 +164,7 @@ nano /etc/locale.gen
 1.  Uncomment the below line -
     
 
-> #en_IN.UTF-8 UTF-8
+> #en_IN.UTF-8
 
 Note - Set this according to your region
 
@@ -219,7 +219,7 @@ systemctl enable NetworkManager
 
 > use cmnd "passwd" and set password for your hostname
 
--   Add user --
+-   Add user -- here (ayu)
     
 
 ```
@@ -238,7 +238,7 @@ EDITOR=nano visudo
 > Uncomment the following line -
 
 ```
-#  %wheel ALL=(ALL&ALL)  ALL 
+#  %wheel ALL=(ALL:ALL)  ALL 
 ```
 
 > save and exit
