@@ -219,14 +219,18 @@ systemctl enable NetworkManager
 
 > use cmnd "passwd" and set password for your hostname
 
--   Add user -- here (ayu)
+-   Add user -- Your user name(eg. ayu)
     
 
 ```
-useradd -m -G wheel -S /bin/bash ayu
+useradd -m -G wheel ayu
 ```
 
-> Set pass for it, use "passwd" and save it
+-   Set pass for user
+
+```
+passwd ayu(put your user name)
+```
 
 -   Give sudo (superuser) permission for user
     
