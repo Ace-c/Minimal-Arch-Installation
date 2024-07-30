@@ -1,5 +1,5 @@
 
-Follow these simple step and you'll have your playboy PC...
+Follow these simple step and you'll have your right to say I use Arch...btw
 
 -   First make bootable drive of an Arch Linux (use Rufus) format in GPT style
     
