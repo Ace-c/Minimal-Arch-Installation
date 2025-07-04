@@ -51,79 +51,62 @@ iwctl -P "PASSPHRASE" station wlan0 connect "NETWORKNAME"
 ```
 
 Now, check your internet connection using
-
 ```
 ping -c 3 google.com
 ```
 
 -   Check disks and partition
-    
-
 ```
 lsblk
 ```
 
 -   Make Partition -
-    
-
 ```
 cfdisk
 ```
 
--   Make 3 partition, Let's suppose you have 200GB of Space then, you can make following parititon style
-    
+-   Make 3 partition, Let's suppose you have 100GB of Space then, you can make following parititon style
 
-1.  1G for /boot/efi parition ( 1G for multiple kernal ) - /dev/sda1
-    
-2.  190G for root partition - /dev/sda2
-    
-3.  9G for swap space - /dev/sda3
-    
+1.  90G for root partition at `/dev/sda1`
 
--   After making partition, Format it
+2.  1G for /boot/efi parition (1G If you want to have multiple kernal) at `/dev/sda2`
     
+3.  9G for swap space at `/dev/sda3`
 
-1.  For boot partition -
-    
+> [!NOTE]
+> If you have at least 16GB of Memory, then you probably don't need of swap space, so you can skip swap part  
 
-```
-mkfs.fat -F32 /dev/sda1
-```
+-   **After making partition, Format it*
 
 1.  For root partition -
-    
-
 ```
-mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda1
 ```
-
-1.  For swap Partition -
-    
-
+2.  For boot partition -
+```
+mkfs.fat -F32 /dev/sda2
+```
+3.  For swap Partition -
 ```
 mkswap /dev/sda3
 ```
 
 -   Now, update your pacman repository
     
-
 ```
 pacman -Syy
 ```
 
 -   Mounting Root and Swap partition System -
-    
 
 1.  Mount Root
     
-
 ```
-mount /dev/sda2 /mnt
+mount /dev/sda1 /mnt
 ```
 
 -   Install Base pacakges
     
-
 ```
 pacstrap -K /mnt base base-devel linux-lts linux-firmware amd-ucode sudo nano vi
 ```
@@ -145,10 +128,11 @@ arch-chroot /mnt
 
 -   Setting Timezone
     
-
 ```
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 ```
+> [!NOTE]
+> You have to set timezone according to your location
 
 ```
 hwclock --systohc
@@ -156,14 +140,12 @@ hwclock --systohc
 
 -   Localization
     
-
 ```
 nano /etc/locale.gen
 ```
 
 1.  Uncomment the below line -
     
-
 > #en_IN.UTF-8
 
 Note - Set this according to your region
@@ -264,7 +246,7 @@ mkdir /boot/efi
     
 
 ```
-mount /dev/sda1 /boot/efi
+mount /dev/sda2 /boot/efi
 ```
 
 -   Install GRUB like this --
