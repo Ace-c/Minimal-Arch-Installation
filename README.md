@@ -280,12 +280,6 @@ grub-install --target=x86_64-efi --bootloader-id=ARCH --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
--   Installing some basic tools ---
-    
-
-```
-pacman -S git make cmake wget curl
-```
 
 -   Exit the fakeroot environment and reboot the sytem
     
