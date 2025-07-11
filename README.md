@@ -1,53 +1,52 @@
 
-Follow these simple step and you'll have your right to say I use Arch...btw
+Follow these simple steps and you'll have your right to say `I use Arch, btw` 
 
--   First make bootable drive of an Arch Linux (use Rufus) format in GPT style
-    
--   Then make sure you have UEFI mode enabled in BIOS
-    
--   Boot through your USB
-    
+**1. Create a bootable Arch Linux USB drive**
+> [!NOTE]
+> You can use ventoy, etcher, rufus. If you're using rufus, use GPT style
 
-> Setup Internet for wireless connection, If you're using ethernet skip this part.
+**2. Make sure you have UEFI mode enabled in BIOS**
+
+**3. Boot through your USB**
+
+
+&nbsp;
+
+## Setup Internet -
+> [!NOTE]
+> If you're using Ethernet, skip this part & go to partionting step
 > 
-> Or, If you have a problem to connecting with ethernet run this
-> 
+> Or, If you have a problem, connecting with ethernet run this cmd. Interface name could be diff, to check interface, run `ip link`
 > ```
 > systemctl start dhcpcd@enp0s0
 > ```
+> 
 
--   For Wireless Connection
+-   **Setup Wireless Connection**
     
 
 ```
 iwctl
 ```
 
-Inside the `iwctl` prompt, use the `device list` command to list the available Wi-Fi devices:
-
+Inside the `iwctl` prompt, use the `device list` command to list the available Wi-Fi devices
 ```
 device list
 ```
 
-Use the `station <device> scan` command to scan for available Wi-Fi networks:
-
+Use the `station <device> scan` command to scan for available Wi-Fi networks
 ```
 iwctl station wlan0 scan
-
 ```
 
 After the scan is complete, use the `station <device> get-networks` command to list the available Wi-Fi networks:
-
 ```
 iwctl station wlan0 get-networks
-
 ```
 
 Connect to your network.
-
 ```
 iwctl -P "PASSPHRASE" station wlan0 connect "NETWORKNAME"
-
 ```
 
 Now, check your internet connection using
@@ -55,38 +54,39 @@ Now, check your internet connection using
 ping -c 3 google.com
 ```
 
--   Check disks and partition
+## Disks and Partitioning
+
+**1. List Devices**
 ```
 lsblk
 ```
-
--   Make Partition -
+**2. Make partition using cfdisk**
 ```
 cfdisk
 ```
 
--   Make 3 partition, Let's suppose you have 100GB of Space then, you can make following parititon style
+Make 3 partition, Let's suppose you have 100GB of Space then, you can make following parititon style
 
-1.  90G for root partition at `/dev/sda1`
-
-2.  1G for /boot/efi parition (1G If you want to have multiple kernal) at `/dev/sda2`
-    
-3.  9G for swap space at `/dev/sda3`
-
+- 1G for `/boot` parition (1G for multiple kernel) `/dev/sda2`
+- 18G for `swap` space `/dev/sda3` (For 16GB RAM)
+ 
 > [!NOTE]
-> If you have at least 16GB of Memory, then you probably don't need of swap space, so you can skip swap part  
+> To calculate how much swap is needed, just whatever you RAM size is +2GB, Swap is essential for hibernation feature.
 
--   **After making partition, Format it*
+- Rest size for root `/` partition `/dev/sda1`
 
-1.  For root partition -
+
+**3. After making partition, Format it**
+
+- For root partition -
 ```
 mkfs.ext4 /dev/sda1
 ```
-2.  For boot partition -
+-  For boot partition -
 ```
 mkfs.fat -F32 /dev/sda2
 ```
-3.  For swap Partition -
+-  For swap Partition -
 ```
 mkswap /dev/sda3
 ```
