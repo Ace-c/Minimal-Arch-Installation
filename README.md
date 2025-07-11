@@ -65,20 +65,19 @@ lsblk
 cfdisk
 ```
 
-Make 3 partition, Let's suppose you have 100GB of Space then, you can make following parititon style
+Make 3 partition, Follow this parititon style
 
-- 1G for `/boot` parition (1G for multiple kernel) `/dev/sda2`
-- 18G for `swap` space `/dev/sda3` (For 16GB RAM)
- 
-> [!NOTE]
-> To calculate how much swap is needed, just whatever you RAM size is +2GB, Swap is essential for hibernation feature.
+- 1G for `/boot` parition (1G for multiple kernel)
+- 18G for `swap` space (For 16GB RAM)
+> To calculate how much swap is needed, just whatever you RAM size is +2GB.
+- Rest size for root `/` partition
 
-- Rest size for root `/` partition `/dev/sda1`
-
+&nbsp;
 
 **3. After making partition, Format it**
+> run `lsblk` check your parition, I'll asume **/** at `/dev/sda1`, **/boot** at `/dev/sda2`, **swap** at `/dev/sda3`
 
-- For root partition -
+- For root `/` partition -
 ```
 mkfs.ext4 /dev/sda1
 ```
@@ -91,90 +90,69 @@ mkfs.fat -F32 /dev/sda2
 mkswap /dev/sda3
 ```
 
--   Now, update your pacman repository
-    
+
+## Mounting & Installing Base Packages -
+
+**1.  Mount root parition**
+```
+mount /dev/sda1 /mnt
+```
+**2. Refresh all package databases**
 ```
 pacman -Syy
 ```
 
--   Mounting Root and Swap partition System -
-
-1.  Mount Root
-    
+**3. Install essential packages**
 ```
-mount /dev/sda1 /mnt
+pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode sudo nano vi
 ```
+> Note - You can use "intel-ucode" for Intel system
 
--   Install Base pacakges
-    
-```
-pacstrap -K /mnt base base-devel linux-lts linux-firmware amd-ucode sudo nano vi
-```
+&nbsp;
 
-Note - You can use "intel-ucode" for Intel baed system
+## Configure The System - 
 
-
-
--   Configure the File system
-    
-
+**1. Configure the file system**
 ```
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
+**2. Enter chroot**
 ```
 arch-chroot /mnt
 ```
 
--   Setting Timezone
-    
+**3. Setting Timezone**
 ```
-ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
 ```
-> [!NOTE]
-> You have to set timezone according to your location
+> Example: Region- Asia, city- kolkata
 
 ```
 hwclock --systohc
 ```
 
--   Localization
-    
+**4. Localization**
 ```
 nano /etc/locale.gen
 ```
+* Uncomment the line `#en_IN.UTF-8`, Set this according to your region. save and exit
 
-1.  Uncomment the below line -
-    
-> #en_IN.UTF-8
 
-Note - Set this according to your region
-
-1.  save and exit
-    
-
--   Generate Locale -
-    
-
+**5. Generate Locale**   
 ```
 locale-gen
 ```
 
--   Add Language to locale.conf
-    
-
+- Add Language to locale.conf
 ```
 echo "LANG=en_IN.UTF-8" > /etc/locale.conf
 ```
 
--   Set Hostname
-    
-
+**6. Set Hostname**
 ```
 echo arch > /etc/hostname
 ```
-
-> set hosts -
 
 ```
 nano /etc/hosts
@@ -188,35 +166,28 @@ nano /etc/hosts
 127.0.1.1    arch.localdomain  arch
 ```
 
--   Install and Enable Network Manager
-    
-
+- Install and Enable Network Manager
 ```
 pacman -S networkmanager
 systemctl enable NetworkManager
 ```
 
--   Set Root Password
+**7. Set User Root Password**
     
 
 > use cmnd "passwd" and set password for your hostname
 
--   Add user -- Your user name(eg. ayu)
-    
-
+- Add user (eg. ayu)
 ```
 useradd -m -G wheel ayu
 ```
 
--   Set pass for user
-
+-  Set pass for the user
 ```
 passwd ayu(put your user name)
 ```
 
--   Give sudo (superuser) permission for user
-    
-
+-  Give sudo (superuser) permission for user
 ```
 EDITOR=nano visudo
 ```
@@ -229,7 +200,7 @@ EDITOR=nano visudo
 
 > save and exit
 
--   Install GRUB Bootloader ---
+Install GRUB Bootloader ---
     
 
 ```
