@@ -103,12 +103,12 @@ pacman -Syy
 ```
 
 **3. Install essential packages**
+- Install `intel-ucode` for Intel based system
 ```
 pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode sudo nano vi
 ```
-> Note - You can use "intel-ucode" for Intel system
 
-&nbsp;
+
 
 ## Configure The System - 
 
@@ -136,7 +136,7 @@ hwclock --systohc
 ```
 nano /etc/locale.gen
 ```
-* Uncomment the line `#en_IN.UTF-8`, Set this according to your region. save and exit
+> Uncomment the line `#en_IN.UTF-8`, Set this according to your region. save and exit
 
 
 **5. Generate Locale**   
@@ -144,7 +144,7 @@ nano /etc/locale.gen
 locale-gen
 ```
 
-- Add Language to locale.conf
+- Add Language to locale.conf(set acc. to your region).
 ```
 echo "LANG=en_IN.UTF-8" > /etc/locale.conf
 ```
@@ -158,7 +158,7 @@ echo arch > /etc/hostname
 nano /etc/hosts
 ```
 
-> Add these line & save it, use "TAB" for spacing
+-  Add following contents & save it, use "TAB" for spacing
 
 ```
 127.0.0.1    localhost
@@ -172,73 +172,68 @@ pacman -S networkmanager
 systemctl enable NetworkManager
 ```
 
-**7. Set User Root Password**
+**7. Set User & Password**
     
+- set root password 
+```
+passwd
+```
 
-> use cmnd "passwd" and set password for your hostname
-
-- Add user (eg. ayu)
+- Add user (eg, ayu) 
 ```
 useradd -m -G wheel ayu
 ```
 
--  Set pass for the user
+-  Set password for the user
 ```
-passwd ayu(put your user name)
+passwd ayu
 ```
 
--  Give sudo (superuser) permission for user
+-  Enable sudo permission to the user
 ```
 EDITOR=nano visudo
 ```
+> Uncomment the following line `#%wheel ALL=(ALL:ALL)  ALL`
 
-> Uncomment the following line -
 
-```
-#  %wheel ALL=(ALL:ALL)  ALL 
-```
 
-> save and exit
-
-Install GRUB Bootloader ---
+## Installing Bootloader & Configuring
     
-
 ```
 pacman -S grub efibootmgr
 ```
 
-> Create directory where EFI partition will be mounted
-
+- Create `efi` directory 
 ```
 mkdir /boot/efi
 ```
 
--   Now mount EFI partition you had created before (/dev/sda1)
-    
-
+- Now mount `/boot/efi` to `/dev/sda2`
 ```
 mount /dev/sda2 /boot/efi
 ```
 
--   Install GRUB like this --
-    
-
+- Install GRUB 
 ```
-grub-install --target=x86_64-efi --bootloader-id=ARCH --efi-directory=/boot/efi
+grub-install --target=x86_64-efi --bootloader-id=ArchLinux --efi-directory=/boot/efi
 ```
 
-> you can replace id "ARCH" with your own custom name
-
+- Update grub configurtion
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 
--   Exit the fakeroot environment and reboot the sytem
+## Exit and reboot the sytem 
     
-
 ```
 exit
-umount -l /mnt
-shutdown now
+```
+
+```
+umount -R /mnt
+```
+
+```
+reboot
 ```
