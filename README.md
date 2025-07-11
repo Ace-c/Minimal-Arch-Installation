@@ -68,7 +68,7 @@ cfdisk
 Make 3 partition, Follow this partition style
 
 - 1G for `/boot` partition (1G for multiple kernel)
-- 18G for `swap` To calculate how much swap is needed, Your RAM size(eg, 16G) +2GB
+- 18G for `swap` partition. To calculate how much swap is needed, Your RAM size(eg, 16G) +2GB
 - Rest size for root `/` partition
 
 &nbsp;
