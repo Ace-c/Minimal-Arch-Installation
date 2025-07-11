@@ -65,9 +65,9 @@ lsblk
 cfdisk
 ```
 
-Make 3 partition, Follow this parititon style
+Make 3 partition, Follow this partition style
 
-- 1G for `/boot` parition (1G for multiple kernel)
+- 1G for `/boot` partition (1G for multiple kernel)
 - 18G for `swap` space (For 16GB RAM)
 > To calculate how much swap is needed, just whatever you RAM size is +2GB.
 - Rest size for root `/` partition
@@ -75,13 +75,13 @@ Make 3 partition, Follow this parititon style
 &nbsp;
 
 **3. After making partition, Format it**
-> run `lsblk` check your parition, I'll asume **/** at `/dev/sda1`, **/boot** at `/dev/sda2`, **swap** at `/dev/sda3`
+> run `lsblk` check your partition, I'll asume **/** at `/dev/sda1`, **/boot** at `/dev/sda2`, **swap** at `/dev/sda3`
 
-- For root `/` partition -
+- For root `/` Partition -
 ```
 mkfs.ext4 /dev/sda1
 ```
--  For boot partition -
+-  For boot Partition -
 ```
 mkfs.fat -F32 /dev/sda2
 ```
