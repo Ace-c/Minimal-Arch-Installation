@@ -14,7 +14,7 @@ Follow these simple steps and you'll have your right to say `I use Arch, btw`
 
 ## Setup Internet -
 > [!NOTE]
-> If you're using Ethernet, skip this part & go to [Disk & Partionting](Ace-c/Linux-Troubleshooting) step
+> If you're using Ethernet, skip this part & go to [Disk & Partionting](https://github.com/Ace-c/Minimal-Arch-Installation/blob/README.md/README.md#disks-and-partitioning) step
 > 
 > Or, If you have a problem, connecting with ethernet run this cmd. Interface name could be diff, to check interface, run `ip link`
 > ```
