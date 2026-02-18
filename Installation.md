@@ -1,13 +1,6 @@
-
-Follow these simple steps and you'll have your right to say `I use Arch, btw` 
-
-**1. Create a bootable Arch Linux USB drive**
-> [!NOTE]
-> You can use ventoy, etcher, rufus. If you're using rufus, use GPT style
-
-**2. Make sure you have UEFI mode enabled in BIOS**
-
-**3. Boot through your USB**
+**STEP 1:** Create a bootable Arch Linux USB drive & Boot through your USB
+> [!IMPORTANT]
+> **This guide is for UEFI Firmware not for legacy BIOS. Make sure you have UEFI mode enabled**
 
 
 &nbsp;
