@@ -12,5 +12,5 @@
 
 [Intel Graphics](https://wiki.archlinux.org/title/Microcode)
 
-
+[Logging](https://wiki.archlinux.org/title/Category:Logging)
 
