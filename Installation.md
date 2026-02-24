@@ -1,10 +1,11 @@
-**STEP 1:** Create a bootable Arch Linux USB drive & Boot through your USB
+
 > [!IMPORTANT]
 > **This guide is for UEFI Firmware not for legacy BIOS. Make sure you have UEFI mode enabled**
 
 
 &nbsp;
 
+**First:** Create a bootable Arch Linux USB drive & Boot through your USB
 ## Setup Internet -
 > [!NOTE]
 > If you're using Ethernet, skip this part & go to [Disk & Partionting](https://github.com/Ace-c/Minimal-Arch-Installation/blob/README.md/README.md#disks-and-partitioning) step
